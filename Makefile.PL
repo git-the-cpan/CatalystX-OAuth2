@@ -16,6 +16,7 @@ my %WriteMakefileArgs = (
     "Catalyst::Controller" => 0,
     "Catalyst::Controller::ActionRole" => 0,
     "Catalyst::Model::DBIC::Schema" => 0,
+    "Catalyst::Plugin::ConfigLoader" => 0,
     "CatalystX::Test::MockContext" => 0,
     "File::Find" => 0,
     "File::Temp" => 0,
@@ -58,7 +59,7 @@ my %WriteMakefileArgs = (
     "base" => 0,
     "parent" => 0
   },
-  "VERSION" => "0.001001",
+  "VERSION" => "0.001002",
   "test" => {
     "TESTS" => "t/*.t t/integration/*.t t/unit/*.t"
   }

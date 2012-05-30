@@ -27,7 +27,7 @@ CatalystX::OAuth2::Store - The API for oauth2 stores
 
 =head1 VERSION
 
-version 0.001001
+version 0.001002
 
 =head1 AUTHOR
 
@@ -35,7 +35,7 @@ Eden Cardim <edencardim@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Suretec Systems.
+This software is copyright (c) 2012 by Suretec Systems Ltd.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

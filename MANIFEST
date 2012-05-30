@@ -3,7 +3,6 @@ MANIFEST
 META.yml
 Makefile.PL
 README
-client_test.pl
 dist.ini
 lib/Catalyst/ActionRole/OAuth2/AuthToken/ViaAuthGrant.pm
 lib/Catalyst/ActionRole/OAuth2/AuthToken/ViaRefreshToken.pm
@@ -34,7 +33,6 @@ lib/CatalystX/OAuth2/Schema/Result/RefreshToken.pm
 lib/CatalystX/OAuth2/Schema/Result/Token.pm
 lib/CatalystX/OAuth2/Store.pm
 lib/CatalystX/OAuth2/Store/DBIC.pm
-server_test.pl
 t/00-compile.t
 t/integration/100-client-access-protected-resource.t
 t/lib/AuthServer.pm
