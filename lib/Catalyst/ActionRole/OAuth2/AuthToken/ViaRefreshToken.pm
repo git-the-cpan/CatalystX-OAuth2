@@ -20,6 +20,7 @@ sub build_oauth2_request {
     $req->store($store);
   }
   catch {
+    $c->log->error($_);
     # need to figure out a better way, but this will do for now
     $c->res->body('warning: response_type/client_id invalid or missing');
 
@@ -32,6 +33,7 @@ sub build_oauth2_request {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -40,7 +42,7 @@ Catalyst::ActionRole::OAuth2::AuthToken::ViaRefreshToken - Authorization token r
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 SYNOPSIS
 
@@ -75,10 +77,9 @@ Eden Cardim <edencardim@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Suretec Systems Ltd.
+This software is copyright (c) 2015 by Suretec Systems Ltd.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

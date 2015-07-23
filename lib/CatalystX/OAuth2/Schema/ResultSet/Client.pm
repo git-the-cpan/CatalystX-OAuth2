@@ -1,8 +1,10 @@
-package CatalystX::OAuth2::Schema;
-use base qw(DBIx::Class::Schema);
-__PACKAGE__->load_namespaces;
+package CatalystX::OAuth2::Schema::ResultSet::Client;
+use parent 'DBIx::Class::ResultSet';
 
-# ABSTRACT: A L<DBIx::Class> schema for use as the backend of the DBIC OAuth2 store
+sub find_refresh {
+  shift->related_resultset('codes')->search( { is_active => 1 } )
+    ->related_resultset('refresh_tokens')->find(@_);
+}
 
 1;
 
@@ -12,7 +14,7 @@ __END__
 
 =head1 NAME
 
-CatalystX::OAuth2::Schema - A L<DBIx::Class> schema for use as the backend of the DBIC OAuth2 store
+CatalystX::OAuth2::Schema::ResultSet::Client
 
 =head1 VERSION
 

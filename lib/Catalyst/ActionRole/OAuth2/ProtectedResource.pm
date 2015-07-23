@@ -1,29 +1,36 @@
 package Catalyst::ActionRole::OAuth2::ProtectedResource;
 use Moose::Role;
+use CatalystX::OAuth2::Request::ProtectedResource;
 
 # ABSTRACT: Resource endpoint for OAuth2 authentication flows
 
 
-before execute => sub {
-  my ( $self, $controller, $c ) = @_;
+with 'CatalystX::OAuth2::ActionRole::RequestInjector';
 
-  $c->res->status(401), $c->detach
-    unless $c->user_exists;
-  my $client = $c->user;
+sub build_oauth2_request {
+  my ( $self, $controller, $c ) = @_;
 
   my $auth = $c->req->header('Authorization')
     or $c->res->status(401), $c->detach;
   my ( $type, $token ) = split ' ', $auth;
 
-  $c->res->status(401), $c->detach
-    unless defined($token)
-      && length($token)
-      && $controller->store->verify_client_token( $client->id, $token );
-};
+  my $is_valid = defined($token)
+    && length($token);
+
+  if ( $is_valid
+    and my $token_obj = $controller->store->verify_client_token($token) )
+  {
+    return CatalystX::OAuth2::Request::ProtectedResource->new(
+      token => $token_obj );
+  }
+  $c->res->status(401);
+  $c->detach;
+}
 
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -32,7 +39,7 @@ Catalyst::ActionRole::OAuth2::ProtectedResource - Resource endpoint for OAuth2 a
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 SYNOPSIS
 
@@ -68,10 +75,9 @@ Eden Cardim <edencardim@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Suretec Systems Ltd.
+This software is copyright (c) 2015 by Suretec Systems Ltd.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

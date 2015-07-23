@@ -9,7 +9,7 @@ use CatalystX::OAuth2::Request::RequestAuth;
 
 with 'CatalystX::OAuth2::ActionRole::Grant';
 
-has enable_access_secret => ( isa => 'Bool', is => 'ro', default => 0 );
+has enable_client_secret => ( isa => 'Bool', is => 'ro', default => 0 );
 
 sub build_oauth2_request {
   my ( $self, $controller, $c ) = @_;
@@ -19,11 +19,11 @@ sub build_oauth2_request {
   try {
     $req = CatalystX::OAuth2::Request::RequestAuth->new(
       %{ $c->req->query_parameters } );
-    $req->enable_access_secret($self->enable_access_secret);
+    $req->enable_client_secret($self->enable_client_secret);
     $req->store($store);
   }
   catch {
-
+    $c->log->error($_);
     # need to figure out a better way, but this will do for now
     $c->res->body(qq{warning: response_type/client_id invalid or missing});
 
@@ -35,6 +35,7 @@ sub build_oauth2_request {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -43,7 +44,7 @@ Catalyst::ActionRole::OAuth2::RequestAuth - Authorization grant endpoint for OAu
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 SYNOPSIS
 
@@ -77,10 +78,9 @@ Eden Cardim <edencardim@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Suretec Systems Ltd.
+This software is copyright (c) 2015 by Suretec Systems Ltd.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

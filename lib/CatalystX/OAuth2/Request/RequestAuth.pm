@@ -5,14 +5,17 @@ use Moose;
 
 with 'CatalystX::OAuth2::Grant';
 
-has access_secret =>
-  ( isa => 'Str', is => 'ro', predicate => 'has_access_secret' );
-has enable_access_secret => ( isa => 'Bool', is => 'rw', default => 0 );
+has client_secret =>
+  ( isa => 'Str', is => 'ro', predicate => 'has_client_secret' );
+has enable_client_secret => ( isa => 'Bool', is => 'rw', default => 0 );
 
 around _params => sub {
   my $orig = shift;
-  return $orig->(@_), qw(access_secret)
+  return $orig->(@_), qw(client_secret)
 };
+
+# cargo-culted, a small refactor of the action roles should remove the need to do this
+sub has_approval { 1 }
 
 sub _build_query_parameters {
   my ($self) = @_;
@@ -39,14 +42,14 @@ sub _build_query_parameters {
       . ' is not authorized to access this resource'
     };
 
-  $store->verify_access_secret( $self->client_id, $self->access_secret )
+  $store->verify_client_secret( $self->client_id, $self->client_secret )
     or return {
     error             => 'unauthorized_client',
     error_description => 'the client identified by '
       . $self->client_id
       . ' is not authorized to access this resource'
     }
-    if $self->enable_access_secret;
+    if $self->enable_client_secret;
 
   $q{client_id} = $self->client_id;
 
@@ -54,7 +57,7 @@ sub _build_query_parameters {
     or return {
     error => 'invalid_request',
     error_description =>
-      'redirection_uri does not match the registerd client endpoint'
+      'redirection_uri does not match the registered client endpoint'
     };
 
   $q{redirect_uri} = $self->redirect_uri;
@@ -74,6 +77,7 @@ sub next_action_uri {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -82,7 +86,7 @@ CatalystX::OAuth2::Request::RequestAuth - Role for the initial request in the oa
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 AUTHOR
 
@@ -90,10 +94,9 @@ Eden Cardim <edencardim@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Suretec Systems Ltd.
+This software is copyright (c) 2015 by Suretec Systems Ltd.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
