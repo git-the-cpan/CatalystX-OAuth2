@@ -39,7 +39,7 @@ CatalystX::OAuth2::Controller::Role::WithStore - A role for providing oauth2 sto
 
 =head1 VERSION
 
-version 0.001003
+version 0.001004
 
 =head1 AUTHOR
 

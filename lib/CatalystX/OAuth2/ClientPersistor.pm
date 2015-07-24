@@ -26,7 +26,7 @@ CatalystX::OAuth2::ClientPersistor - Work-around for persisting oauth2-authentic
 
 =head1 VERSION
 
-version 0.001003
+version 0.001004
 
 =head1 AUTHOR
 

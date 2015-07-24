@@ -24,7 +24,7 @@ CatalystX::OAuth2::ActionRole::Grant - Integrate an action with an oauth2 reques
 
 =head1 VERSION
 
-version 0.001003
+version 0.001004
 
 =head1 AUTHOR
 

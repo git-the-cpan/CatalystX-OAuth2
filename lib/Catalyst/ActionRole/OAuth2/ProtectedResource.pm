@@ -39,7 +39,7 @@ Catalyst::ActionRole::OAuth2::ProtectedResource - Resource endpoint for OAuth2 a
 
 =head1 VERSION
 
-version 0.001003
+version 0.001004
 
 =head1 SYNOPSIS
 

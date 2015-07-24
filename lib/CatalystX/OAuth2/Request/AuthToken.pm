@@ -53,7 +53,7 @@ CatalystX::OAuth2::Request::AuthToken - An oauth2 authentication token implement
 
 =head1 VERSION
 
-version 0.001003
+version 0.001004
 
 =head1 AUTHOR
 

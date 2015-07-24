@@ -44,7 +44,7 @@ CatalystX::OAuth2::Request::RefreshToken - The oauth2 refresh token
 
 =head1 VERSION
 
-version 0.001003
+version 0.001004
 
 =head1 AUTHOR
 
